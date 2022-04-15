@@ -1,1 +1,1 @@
-# Twitter-clone
+Twitter clone created using REACT and DJANGO
