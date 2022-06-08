@@ -1,6 +1,6 @@
 from rest_framework import generics, permissions, filters
 from rest_framework.response import Response
-from django.contrib.auth.models import User
+from accounts.models import Accounts
 from knox.models import AuthToken
 from .serializers import RegisterSerializer, UserSerializer, LoginSerializer
 
@@ -8,7 +8,7 @@ from .serializers import RegisterSerializer, UserSerializer, LoginSerializer
 # All users
 class AllUsers(generics.ListAPIView):
     permission_classes = (permissions.IsAuthenticated,)
-    queryset = User.objects.all()
+    queryset = Accounts.objects.all()
     serializer_class = UserSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['username']
@@ -58,5 +58,5 @@ class GetRecentUsers(generics.ListAPIView):
     permission_classes = [
         permissions.IsAuthenticated
     ]
-    queryset = User.objects.order_by('-id')[:5]
+    queryset = Accounts.objects.order_by('-id')[:5]
     serializer_class = UserSerializer

@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from accounts.models import Accounts
 from django.conf import settings
 
 
@@ -20,7 +20,7 @@ class Comment(models.Model):
     username = models.CharField(max_length=255, blank=True)
     body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
+    owner = models.ForeignKey(Accounts, on_delete=models.CASCADE, blank=True)
 
     class Meta:
         ordering = ('created', 'username')
