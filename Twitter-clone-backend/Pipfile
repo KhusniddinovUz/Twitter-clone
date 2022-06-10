@@ -13,6 +13,7 @@ django-filter = "*"
 django-heroku = "*"
 gunicorn = "*"
 python-dotenv = "*"
+djangorestframework-simplejwt = "*"
 
 [dev-packages]
 

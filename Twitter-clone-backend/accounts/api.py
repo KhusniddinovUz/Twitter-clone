@@ -3,6 +3,8 @@ from rest_framework.response import Response
 from accounts.models import Accounts
 from knox.models import AuthToken
 from .serializers import RegisterSerializer, UserSerializer, LoginSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
+from .utils import Util
 
 
 # All users
@@ -22,10 +24,22 @@ class RegisterAPI(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
+
+        token = RefreshToken.for_user(user).access_token
+        url = f'http://127.0.0.1:8000/api/verify-email?token={str(token)}'
+        email_body = f'Hi {user.username}. Please, click the link below to verify your TwitterCloneUz account. {url}'
+        data = {'message': email_body, 'receiver': user.email}
+        Util.send_email(data)
         return Response({
             "user": UserSerializer(user, context=self.get_serializer_context()).data,
             "token": AuthToken.objects.create(user)[1]
         })
+
+
+# Verify Email
+class VerifyEmail(generics.GenericAPIView):
+    def get(self):
+        pass
 
 
 # Login API

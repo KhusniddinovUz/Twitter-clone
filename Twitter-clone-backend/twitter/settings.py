@@ -35,12 +35,15 @@ INSTALLED_APPS = [
     'knox',
     'corsheaders',
     'django_filters',
+    'rest_framework_simplejwt',
 ]
 
 AUTH_USER_MODEL = 'accounts.Accounts'
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'knox.auth.TokenAuthentication', 'rest_framework_simplejwt.authentication.JWTAuthentication',),
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }
 
@@ -139,5 +142,12 @@ USE_TZ = True
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
+
+# Email settings
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'twittercloneuz@gmail.com'
+EMAIL_HOST_PASSWORD = 'tveqlbrxvpsfzdcn'
 
 django_heroku.settings(locals())
