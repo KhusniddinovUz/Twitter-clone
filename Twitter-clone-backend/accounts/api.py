@@ -1,10 +1,12 @@
-from rest_framework import generics, permissions, filters
+from rest_framework import generics, permissions, filters, status
 from rest_framework.response import Response
 from accounts.models import Accounts
 from knox.models import AuthToken
 from .serializers import RegisterSerializer, UserSerializer, LoginSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from .utils import Util
+from django.conf import settings
+import jwt
 
 
 # All users
@@ -38,8 +40,19 @@ class RegisterAPI(generics.GenericAPIView):
 
 # Verify Email
 class VerifyEmail(generics.GenericAPIView):
-    def get(self):
-        pass
+    def get(self, request):
+        token = request.GET.get('token')
+
+        try:
+            payload = jwt.decode(token, settings.SECRET_KEY, algorithms='HS256')
+            user = Accounts.objects.get(id=payload['user_id'])
+            user.email_verified = True
+            user.save()
+            return Response({'message': 'Email has been successfully activated'}, status=status.HTTP_200_OK)
+        except jwt.ExpiredSignatureError:
+            return Response({'message': 'Activation Failed'}, status=status.HTTP_400_BAD_REQUEST)
+        except jwt.DecodeError:
+            return Response({'message': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 # Login API
