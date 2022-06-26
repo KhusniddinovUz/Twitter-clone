@@ -32,7 +32,7 @@ export const login = (user) => (dispatch) => {
     },
   };
   axios
-    .post(`${url}/api/login`, user, config)
+    .post(`${url}/api/login/`, user, config)
     .then((res) => {
       dispatch({ type: LOGIN_SUCCESS, payload: res.data });
     })
@@ -49,7 +49,7 @@ export const register = (user) => (dispatch) => {
     },
   };
   axios
-    .post(`${url}/api/register`, user, config)
+    .post(`${url}/api/register/`, user, config)
     .then((res) => {
       dispatch({ type: SIGNUP_SUCCESS, payload: res.data });
     })

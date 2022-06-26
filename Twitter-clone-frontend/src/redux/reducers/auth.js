@@ -15,6 +15,7 @@ const initialState = {
   username: null,
   email: null,
   id: null,
+  isVerified: null,
 };
 
 const auth = (state = initialState, action) => {
@@ -29,6 +30,7 @@ const auth = (state = initialState, action) => {
         email: action.payload.user.email,
         token: localStorage.getItem("twitter-token"),
         id: action.payload.user.id,
+        isVerified: action.payload.user.email_verified,
       };
     case USER_LOADED:
       return {
@@ -37,11 +39,13 @@ const auth = (state = initialState, action) => {
         email: action.payload.email,
         username: action.payload.username,
         id: action.payload.id,
+        isVerified: action.payload.email_verified,
       };
     case USER_NOTLOADED:
       return {
         ...state,
         isAuthenticated: false,
+        isVerified: false,
       };
     default:
       return state;

@@ -97,10 +97,10 @@ WSGI_APPLICATION = 'twitter.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ddqcuadfjvi2u8',
-        'USER': 'cfecssnalfkefb',
-        'PASSWORD': 'b18ae635f6667f3695624327dfacfe15dec66031c311fdd53ecada77cf5d4913',
-        'HOST': 'ec2-54-246-85-151.eu-west-1.compute.amazonaws.com',
+        'NAME': 'd3sll0ldln4nei',
+        'USER': 'kcguzaopegywxk',
+        'PASSWORD': 'a32911b39e0d655f72c5ffbe49534072234e26852e6878c2303556c94228c9bf',
+        'HOST': 'ec2-52-19-82-27.eu-west-1.compute.amazonaws.com',
         'PORT': '5432'
     }
 }
