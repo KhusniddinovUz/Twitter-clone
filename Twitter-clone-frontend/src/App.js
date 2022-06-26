@@ -26,12 +26,12 @@ const App = () => {
         <Alerts />
         {auth.isAuthenticated === false && <Redirect to="/login" />}
         {auth.isVerified === false && auth.isAuthenticated === true && (
-          <Redirect to={"/verify-email"} />
+          <Redirect to={"/verify-email/"} />
         )}
         <Switch>
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Signup} />
-          <Route exact path="/verify-email" component={EmailVerify} />
+          <Route exact path="/verify-email/" component={EmailVerify} />
           <Route path="/" component={Main} />
         </Switch>
       </div>
